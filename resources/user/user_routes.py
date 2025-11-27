@@ -11,7 +11,6 @@ from fastapi.security import OAuth2PasswordRequestForm
 
 user_router = APIRouter(prefix="/user", tags=["user"])
 
-
 def create_token(user, token_duration=timedelta(minutes=settings.ACCESS_TOKEN_EXPIRE_MINUTES)):
     expires = datetime.now(timezone.utc) + token_duration
     body = {"sub": str(user.id), "type": user.person.type, "exp": expires}

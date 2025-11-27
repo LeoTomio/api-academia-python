@@ -1,0 +1,8 @@
+from fastapi import APIRouter
+
+category_router = APIRouter(prefix="/category", tags=["category"])
+
+
+@category_router.get('/')
+async def get():
+    return {"message":"ola"}

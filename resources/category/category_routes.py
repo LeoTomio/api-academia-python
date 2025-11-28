@@ -1,6 +1,6 @@
 from fastapi import APIRouter, Depends, HTTPException
 from dependencies import get_session, token_verifier
-from models import Category, User
+from models import Category
 from .schema import CategoryCreateSchema, CategoryUpdateSchema
 from sqlalchemy.orm import Session
 
@@ -9,18 +9,27 @@ category_router = APIRouter(prefix="/category", tags=["category"], dependencies=
 
 @category_router.get("/")
 async def category_list(session: Session = Depends(get_session)):
+    """
+    Rota para listar todas as categorias
+    """
     categories = session.query(Category).all()
     return {"categories": categories}
 
 
 @category_router.get("/{category_id}")
 async def category(category_id: str, session: Session = Depends(get_session)):
+    """
+    Rota para selecionar uma categoria específica
+    """
     category = session.query(Category).filter(Category.id == category_id).first()
     return {"categories": category}
 
 
 @category_router.post("/")
 async def create_category(category_schema: CategoryCreateSchema, session: Session = Depends(get_session)):
+    """
+    Rota para criar categoria
+    """
     category = session.query(Category).filter(Category.name == category_schema.name).first()
 
     if category:
@@ -36,6 +45,9 @@ async def create_category(category_schema: CategoryCreateSchema, session: Sessio
 
 @category_router.put("/{category_id}")
 async def update_category(category_id: str, category_schema: CategoryUpdateSchema, session: Session = Depends(get_session)):
+    """
+    Rota para atualizar categoria
+    """
     category = session.query(Category).filter(Category.id == category_id).first()
 
     if not category:
@@ -50,6 +62,9 @@ async def update_category(category_id: str, category_schema: CategoryUpdateSchem
 
 @category_router.delete("/{category_id}")
 async def delete_category(category_id: str, session: Session = Depends(get_session)):
+    """
+    Rota para deletar categoria
+    """
     category = session.query(Category).filter(Category.id == category_id).first()
 
     if not category:

@@ -1,17 +1,26 @@
 from pydantic import BaseModel
 from typing import Optional
-from enum import Enum
-
-class PersonType(str, Enum):
-    STUDENT = "STUDENT"
-    TEACHER = "TEACHER"
 
 
-class Person(BaseModel):
-    name:str
-    age:int
-    phone: Optional[str]
-    email: Optional[str]    
-    type: PersonType
-    is_active: Optional[bool]
-    
+class PersonCreateSchema(BaseModel):
+    name: str
+    age: int
+    phone: Optional[str] = None
+    email: Optional[str] = None
+    is_active: Optional[bool] = None
+    plan_id: Optional[str] = None
+
+    class Config:
+        from_attributes = True  
+
+
+class PersonUpdateSchema(BaseModel):
+    name: str
+    age: int
+    phone: Optional[str] = None
+    email: Optional[str] = None
+    is_active: Optional[bool] = None
+    plan_id: Optional[str] = None
+
+    class Config:
+        from_attributes = True  

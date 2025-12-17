@@ -1,8 +1,16 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, APIRouter
 from fastapi.security import OAuth2PasswordBearer
 from passlib.context import CryptContext
 
 app = FastAPI()
+
+main_router = APIRouter(prefix="/main", tags=["Main"])
+
+
+@main_router.get("/")
+def root():
+    return {"status": "ok"}
+
 
 bcrypt_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 oauth2_schema = OAuth2PasswordBearer(tokenUrl="user/login-docs")
@@ -18,6 +26,7 @@ from resources.training_plan.training_plan_routes import training_plan_router
 from resources.training.training_routes import training_router
 from resources.user.user_routes import user_router
 
+app.include_router(main_router)
 app.include_router(category_router)
 app.include_router(exercise_router)
 app.include_router(measure_router)

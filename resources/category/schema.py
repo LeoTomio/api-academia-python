@@ -6,11 +6,12 @@ class CategoryCreateSchema(BaseModel):
     name: str
 
     class Config:
-        from_attribute: True
+        from_attributes = True  
+
 
 
 class CategoryUpdateSchema(BaseModel):
-    name: Optional[str]
+    name: str
     
     class Config:
-        from_attribute: True
+        from_attributes = True  

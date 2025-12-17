@@ -1,11 +1,20 @@
 from pydantic import BaseModel
-from datetime import datetime
+from typing import Optional
 
 
-class TrainingPlanSchema(BaseModel):
+class TrainingPlanCreateSchema(BaseModel):
     training_id: str
     exercise_id: str
     repetitions: int
 
     class Config:
-        from_attribute: True
+        from_attributes = True
+
+
+class TrainingPlanUpdateSchema(BaseModel):
+    training_id: Optional[str] = None
+    exercise_id: Optional[str] = None
+    repetitions: Optional[int] = None
+
+    class Config:
+        from_attributes = True

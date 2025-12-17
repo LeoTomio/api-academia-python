@@ -4,7 +4,7 @@ from models import Plan
 from .schema import PlanCreateSchema, PlanUpdateSchema
 from sqlalchemy.orm import Session
 
-plan_router = APIRouter(prefix="/plan", tags=["plan"], dependencies=[Depends(token_verifier)])
+plan_router = APIRouter(prefix="/plan", tags=["Plan"], dependencies=[Depends(token_verifier)])
 
 
 @plan_router.get("/")
@@ -22,6 +22,10 @@ async def plan(plan_id: str, session: Session = Depends(get_session)):
     Rota para selecionar um plano específico
     """
     plan = session.query(Plan).filter(Plan.id == plan_id).first()
+    
+    if not plan:
+        raise HTTPException(status_code=400, detail="Plano não existe")
+    
     return {"plans": plan}
 
 

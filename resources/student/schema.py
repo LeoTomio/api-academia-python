@@ -1,14 +1,20 @@
-from pydantic import BaseModel
+from pydantic import BaseModel,model_validator
 from typing import Optional
-from datetime import datetime
 
 
-class StudentSchema(BaseModel):
-    height: Optional[float]
-    weight: Optional[float]
-    objective: Optional[str]
-    registration_date: datetime = datetime.now()
+class StudentCreateSchema(BaseModel):
+    objective: Optional[str] = None
+    teacher_id: Optional[str] = None
     person_id: str
 
     class Config:
-        from_attribute: True
+        from_attributes = True
+         
+
+
+class StudentUpdateSchema(BaseModel):
+    objective: Optional[str] = None
+    teacher_id: Optional[str] = None
+
+    class Config:
+        from_attributes = True

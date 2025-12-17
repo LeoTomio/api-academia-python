@@ -13,10 +13,10 @@ class PlanCreateSchema(BaseModel):
 
 
 class PlanUpdateSchema(BaseModel):
-    name: Optional[str]
-    price: Optional[float]
-    description: Optional[str]
-    duration_months: Optional[int]
+    name: Optional[str] = None
+    price: Optional[float] = None
+    description: Optional[str] = None
+    duration_months: Optional[int] = None
 
     class Config:
         from_attribute: True

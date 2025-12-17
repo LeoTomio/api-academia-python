@@ -4,7 +4,7 @@ from models import Exercise
 from .schema import ExerciseCreateSchema, ExerciseUpdateSchema
 from sqlalchemy.orm import Session
 
-exercise_router = APIRouter(prefix="/exercise", tags=["exercise"])
+exercise_router = APIRouter(prefix="/exercise", tags=["Exercise"], dependencies=[Depends(token_verifier)])
 
 
 @exercise_router.get("/")

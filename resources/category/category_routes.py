@@ -4,7 +4,7 @@ from models import Category
 from .schema import CategoryCreateSchema, CategoryUpdateSchema
 from sqlalchemy.orm import Session
 
-category_router = APIRouter(prefix="/category", tags=["category"], dependencies=[Depends(token_verifier)])
+category_router = APIRouter(prefix="/category", tags=["Category"], dependencies=[Depends(token_verifier)])
 
 
 @category_router.get("/")
@@ -22,6 +22,10 @@ async def category(category_id: str, session: Session = Depends(get_session)):
     Rota para selecionar uma categoria específica
     """
     category = session.query(Category).filter(Category.id == category_id).first()
+    
+    if not category:
+        raise HTTPException(status_code=400, detail="Categoria não existe")
+    
     return {"categories": category}
 
 

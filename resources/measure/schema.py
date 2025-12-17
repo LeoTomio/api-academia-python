@@ -1,11 +1,16 @@
 from pydantic import BaseModel
+from typing import Optional
 from datetime import datetime
 
 
-class MeasureSchema(BaseModel):
-    measure_type: str
-    value: float
-    measure_data: datetime
-
+class MeasureCreateSchema(BaseModel):
+    name:str
+    unit:str
     class Config:
-        from_attribute: True
+        from_attributes = True  
+        
+class MeasureUpdateSchema(BaseModel):
+    name:Optional[str]
+    unit:Optional[str]
+    class Config:
+        from_attributes = True  
